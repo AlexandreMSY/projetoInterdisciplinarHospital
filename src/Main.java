@@ -12,7 +12,6 @@ public class Main {
         Scanner leia = new Scanner(System.in);
         leia.useDelimiter("\\R"); //https://stackoverflow.com/questions/69680170/scanner-skipping-my-nextline-statement-in-constructor
         Hospital hospital = new Hospital();
-        ArrayList<Paciente> listaPacientes = hospital.getPacientes();
         String escolha;
         String nome = null, cpf = null, dataNascimento, especialiade;
         int idade;
@@ -24,7 +23,8 @@ public class Main {
                     1 - Adicionar Paciente
                     2 - Remover Paciente
                     3 - Pesquisar Paciente
-                    4 - Exibir Pacientes
+                    4 - Editar Paciente
+                    5 - 
                     
                     Digite SAIR para Sair.
                     """);
@@ -70,15 +70,10 @@ public class Main {
                     }else{
                         System.out.print("Nome: ");
                         nome = leia.next();
+                        index = hospital.pesquisarPacienteNome(nome);
 
-                        for(Paciente listaPaciente : listaPacientes) {
-                            if (listaPaciente.getNome().equals(nome)) {
-                                System.out.println("Encontrado: ");
-                                listaPaciente.print();
-
-                                index = listaPacientes.indexOf(listaPaciente);
-                            }
-                        }
+                        System.out.println("Encontrado: ");
+                        hospital.getPacientes().get(index).print();
 
                         System.out.println("Remover? S/N");
                         escolha = leia.next().toUpperCase();
@@ -102,25 +97,17 @@ public class Main {
                         case "1":
                             System.out.print("Nome: ");
                             nome = leia.next();
+                            index = hospital.pesquisarPacienteNome(nome);
 
-                            for (Paciente listaPaciente : listaPacientes) {
-                                if (listaPaciente.getNome().equals(nome)){
-                                    System.out.println("Encontrado: ");
-                                    listaPaciente.print();
-                                }
-                            }
+                            hospital.getPacientes().get(index).print();
                             break;
 
                         case "2":
                             System.out.println("CPF: ");
                             cpf = leia.next();
+                            index = hospital.pesquisarPacienteCpf(cpf);
 
-                            for (Paciente listaPaciente : listaPacientes) {
-                                if (listaPaciente.getCpf().equals(cpf)){
-                                    System.out.println("Encontrado");
-                                    listaPaciente.print();
-                                }
-                            }
+                            hospital.getPacientes().get(index).print();
                             break;
 
                         default:
@@ -128,7 +115,7 @@ public class Main {
                     break;
 
                 case "4":
-                    hospital.exibirTodosPacientes();
+
                     break;
             }
 
