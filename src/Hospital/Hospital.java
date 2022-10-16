@@ -14,19 +14,46 @@ public class Hospital {
         doutores.remove(index);
     }
 
-    public void editarDoutor(int index, String novoNome, String novaEspecialidade){
-        doutores.get(index).setNome(novoNome);
-        doutores.get(index).setEspecialidade(novaEspecialidade);
+    public void editarDoutor(int index, String nome, String especialidade){
+        doutores.get(index).setNome(nome);
+        doutores.get(index).setEspecialidade(especialidade);
     }
 
     public ArrayList<Doutor> getDoutores() {
         return doutores;
     }
 
+    public void adicionarPaciente(Paciente paciente){
+        pacientes.add(paciente);
+    }
+
+    public void removerPaciente(int index){
+        pacientes.remove(index);
+    }
+
+    public void editarPaciente(int index, String nome, int idade, String cpf, String dataNascimento){
+        pacientes.get(index).setNome(nome);
+        pacientes.get(index).setIdade(idade);
+        pacientes.get(index).setCpf(cpf);
+        pacientes.get(index).setDataNascimento(dataNascimento);
+    }
+
+    public ArrayList<Paciente> getPacientes() {
+        return pacientes;
+    }
+
     public void exibirTodosDoutores(){
-        for(int index = 0; index < doutores.size(); index++){
-            doutores.get(index).print();
-            System.out.println("");
+        for (Doutor doutores : doutores) {
+            doutores.print();
+            System.out.println("--------------------------------");
         }
     }
+
+    public void exibirTodosPacientes(){
+        for (Paciente paciente : pacientes) {
+            paciente.print();
+            System.out.println("--------------------------------");
+        }
+    }
+
 }

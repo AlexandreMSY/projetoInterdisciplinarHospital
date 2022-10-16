@@ -6,6 +6,13 @@ public class Paciente extends Forma {
     private String cpf;
     private String dataNascimento;
 
+    public Paciente(String nome, int idade, String cpf, String dataNascimento) {
+        this.nome = nome;
+        this.idade = idade;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+    }
+
     public String getNome() {
         return nome;
     }
