@@ -29,5 +29,6 @@ public class Doutor extends Forma {
     public void print() {
         System.out.println("Nome: " + this.nome);
         System.out.println("Especialidade: " + this.especialidade);
+        System.out.println("--------------------------------");
     }
 }
