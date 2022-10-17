@@ -47,6 +47,7 @@ public class Hospital {
         }
     }
 
+    //apenas retorna a última ocorrencia do cpf localizado pois o CPF, em teoria, deve ser único
     public int pesquisarPacienteCpf(String cpf) {
         int index = 0;
 
@@ -56,6 +57,36 @@ public class Hospital {
             }
         }
         return index;
+    }
+
+    //esse metodo retorna cada posição do indice da array doutores que o nome foi encontrado
+    public ArrayList<Integer> pesquisarDoutorNome(String nome){
+        int indices;
+        ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
+
+        for(Doutor doutorEncontrado : doutores){
+            if (doutorEncontrado.getNome().equals(nome)){
+                indices = doutores.indexOf(doutorEncontrado);
+                ocorrenciasIndices.add(indices);
+            }
+        }
+
+        return ocorrenciasIndices;
+    }
+
+    //esse metodo retorna cada posição do indice da array doutores que a especialidade foi encontrado
+    public ArrayList<Integer> pesquisarDoutorEspecialidade(String especialidade){
+        int indices;
+        ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
+
+        for(Doutor doutorEncontrado : doutores){
+            if (doutorEncontrado.getNome().equals(especialidade)){
+                indices = doutores.indexOf(doutorEncontrado);
+                ocorrenciasIndices.add(indices);
+            }
+        }
+
+        return ocorrenciasIndices;
     }
 
     public ArrayList<Paciente> getPacientes() {

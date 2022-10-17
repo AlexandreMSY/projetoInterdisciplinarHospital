@@ -1,8 +1,9 @@
-import Hospital.Hospital;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import Hospital.Doutor;
 import Hospital.Paciente;
+import Hospital.Hospital;
 
 public class Main {
     public static void main(String[] args){
@@ -12,7 +13,7 @@ public class Main {
         String escolha;
         String nome = null, cpf = null, dataNascimento, especialiade;
         int idade;
-        int index;
+        int indice;
 
         do {
             System.out.println(
@@ -23,6 +24,9 @@ public class Main {
                     3 - Pesquisar Paciente
                     4 - Editar Paciente
                     5 - Exibir Pacientes
+                    6 - Adicionar Doutor
+                    7 - Remover Doutor
+                    8 - Exibir Doutores (debug)
                     
                     Digite SAIR para Sair.
                     """);
@@ -31,6 +35,7 @@ public class Main {
             escolha = leia.next().toUpperCase();
 
             switch (escolha){
+                //Adicionar Paciente
                 case "1":
                     System.out.print("Nome: ");
                     nome = leia.next();
@@ -51,6 +56,7 @@ public class Main {
                     hospital.adicionarPaciente(paciente);
                     break;
 
+                //Remover Paciente
                 case "2":
                     System.out.println("""
                             Remover Paciente
@@ -65,16 +71,16 @@ public class Main {
                     if(escolha.equals("1")){
                         System.out.print("CPF: ");
                         cpf = leia.next();
-                        index = hospital.pesquisarPacienteCpf(cpf);
+                        indice = hospital.pesquisarPacienteCpf(cpf);
 
                         System.out.println("Encontrado: ");
-                        hospital.getPacientes().get(index).print();
+                        hospital.getPacientes().get(indice).print();
 
                         System.out.print("Remover? S/N: ");
                         escolha = leia.next().toUpperCase();
 
                         if (escolha.equals("S")){
-                            hospital.removerPaciente(index);
+                            hospital.removerPaciente(indice);
                         }
 
                     }else {
@@ -82,6 +88,7 @@ public class Main {
                     }
                     break;
 
+                //Pesquisar Paciente
                 case "3":
                     System.out.println("""
                             Pesquisar Paciente
@@ -100,13 +107,14 @@ public class Main {
                     } else if (escolha.equals("2")) {
                         System.out.println("CPF: ");
                         cpf = leia.next();
-                        index = hospital.pesquisarPacienteCpf(cpf);
-                        hospital.getPacientes().get(index).print();
+                        indice = hospital.pesquisarPacienteCpf(cpf);
+                        hospital.getPacientes().get(indice).print();
 
                     } else {
                         System.out.println("Cancelado!");
                     }
 
+                //Editar Paciente
                 case "4":
                     System.out.println("""
                             Editar Paciente
@@ -117,25 +125,83 @@ public class Main {
 
                     if (escolha.equals("1")) {
                         cpf = leia.next();
-                        index = hospital.pesquisarPacienteCpf(cpf);
+                        indice = hospital.pesquisarPacienteCpf(cpf);
 
                         System.out.println("Encontrado: ");
-                        hospital.getPacientes().get(index).print();
+                        hospital.getPacientes().get(indice).print();
 
                         System.out.print("Deseja modificar? S/N: ");
                         escolha = leia.next().toUpperCase();
 
                         if(escolha.equals("S")){
-                            hospital.getPacientes().get(index);
+                            hospital.getPacientes().get(indice);
                         }
 
                     } else{
                         System.out.println("Cancelado!");
                     }
 
+                    //Exibir Pacientes
                 case "5":
                     hospital.exibirTodosPacientes();
                     break;
+
+                    //Adicionar Doutor
+                case "6":
+                    System.out.print("Nome: ");
+                    nome = leia.next();
+                    System.out.print("Especialidade: ");
+                    especialiade = leia.next();
+
+                    Doutor doutor = new Doutor(
+                            nome,
+                            especialiade
+                    );
+
+                    hospital.adicionarDoutor(doutor);
+                    break;
+
+                    //Remover Doutor
+                case "7":
+                    ArrayList<Integer> doutoresEncontrados;
+                    int indiceParaRemocao;
+                    System.out.print("Nome: ");
+                    nome = leia.next();
+
+                    //esse metodo retorna cada posição do indice da array doutores que o nome foi encontrado
+                    doutoresEncontrados = hospital.pesquisarDoutorNome(nome);
+                    System.out.println(doutoresEncontrados);
+
+                    //este loop printa todas as vezes que o nome foi encontrado
+                    for(int doutorEncontrado : doutoresEncontrados){
+                        indice = doutoresEncontrados.lastIndexOf(doutorEncontrado);
+                        System.out.println("ID: " + indice);
+                        hospital.getDoutores().get(indice).print();
+                    }
+
+                    System.out.print("ID para remover: ");
+                    indiceParaRemocao = leia.nextInt();
+                    indice = doutoresEncontrados.get(indiceParaRemocao);
+
+                    hospital.getDoutores().get(indice).print();
+
+                    System.out.print("Remover doutor? S/N: ");
+                    escolha = leia.next().toUpperCase();
+
+                    if(escolha.equals("S")){
+                        hospital.getDoutores().remove(indice);
+                    }else{
+                        System.out.println("Cancelado");
+                    }
+
+
+                    break;
+
+                    //Exibir Doutores (debug)
+                case "8":
+                    hospital.exibirTodosDoutores();
+                    break;
+
             }
         }while (!escolha.equals("SAIR"));
     }
