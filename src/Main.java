@@ -63,7 +63,7 @@ public class Main {
                     escolha = leia.next().toUpperCase();
 
                     if(escolha.equals("1")){
-                        System.out.print("Nome: ");
+                        System.out.print("CPF: ");
                         cpf = leia.next();
                         index = hospital.pesquisarPacienteCpf(cpf);
 
