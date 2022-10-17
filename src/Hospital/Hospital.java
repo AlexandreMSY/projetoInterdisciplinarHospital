@@ -38,15 +38,13 @@ public class Hospital {
         pacientes.get(index).setDataNascimento(dataNascimento);
     }
 
-    public int pesquisarPacienteNome(String nome) {
-        int index = 0;
-
+    public void exibirPacientesComNome(String nome) {
         for (Paciente listaPaciente : pacientes) {
             if (listaPaciente.getNome().equals(nome)) {
-                index = pacientes.indexOf(listaPaciente);
+                listaPaciente.print();
+                System.out.println("--------------------------------");
             }
         }
-        return index;
     }
 
     public int pesquisarPacienteCpf(String cpf) {

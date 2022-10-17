@@ -1,10 +1,7 @@
 import Hospital.Hospital;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import Hospital.Doutor;
 import Hospital.Paciente;
 
 public class Main {
@@ -15,6 +12,7 @@ public class Main {
         String escolha;
         String nome = null, cpf = null, dataNascimento, especialiade;
         int idade;
+        int index;
 
         do {
             System.out.println(
@@ -24,7 +22,7 @@ public class Main {
                     2 - Remover Paciente
                     3 - Pesquisar Paciente
                     4 - Editar Paciente
-                    5 - 
+                    5 - Exibir Pacientes
                     
                     Digite SAIR para Sair.
                     """);
@@ -54,33 +52,33 @@ public class Main {
                     break;
 
                 case "2":
-                    int index = 0;
                     System.out.println("""
                             Remover Paciente
                             
-                            1 - Pesquisar pelo nome
-                            SAIR para voltar para o menu
+                            1 - Pesquisar pelo CPF
+                            Qualquer outro caractere para voltar para o menu
                             """);
 
                     System.out.print("Escolha: ");
                     escolha = leia.next().toUpperCase();
 
-                    if (escolha.equals("SAIR")){
-                        System.out.println("Cancelado");
-                    }else{
+                    if(escolha.equals("1")){
                         System.out.print("Nome: ");
-                        nome = leia.next();
-                        index = hospital.pesquisarPacienteNome(nome);
+                        cpf = leia.next();
+                        index = hospital.pesquisarPacienteCpf(cpf);
 
                         System.out.println("Encontrado: ");
                         hospital.getPacientes().get(index).print();
 
-                        System.out.println("Remover? S/N");
+                        System.out.print("Remover? S/N: ");
                         escolha = leia.next().toUpperCase();
 
                         if (escolha.equals("S")){
                             hospital.removerPaciente(index);
                         }
+
+                    }else {
+                        System.out.println("Cancelado!");
                     }
                     break;
 
@@ -89,37 +87,56 @@ public class Main {
                             Pesquisar Paciente
                             1 - Pesquisar pelo nome
                             2 - Pesquisar pelo CPF
+                            Qualquer outro caractere para voltar para o menu
+                            """);
+
+                    escolha = leia.next();
+
+                    if (escolha.equals("1")){
+                        System.out.print("Nome: ");
+                        nome = leia.next();
+                        hospital.exibirPacientesComNome(nome);
+
+                    } else if (escolha.equals("2")) {
+                        System.out.println("CPF: ");
+                        cpf = leia.next();
+                        index = hospital.pesquisarPacienteCpf(cpf);
+                        hospital.getPacientes().get(index).print();
+
+                    } else {
+                        System.out.println("Cancelado!");
+                    }
+
+                case "4":
+                    System.out.println("""
+                            Editar Paciente
+                            1 - Pesquisar pelo CPF
                             Qualquer outro caractere para voltar para o menu""");
 
                     escolha = leia.next();
 
-                    switch (escolha){
-                        case "1":
-                            System.out.print("Nome: ");
-                            nome = leia.next();
-                            index = hospital.pesquisarPacienteNome(nome);
+                    if (escolha.equals("1")) {
+                        cpf = leia.next();
+                        index = hospital.pesquisarPacienteCpf(cpf);
 
-                            hospital.getPacientes().get(index).print();
-                            break;
+                        System.out.println("Encontrado: ");
+                        hospital.getPacientes().get(index).print();
 
-                        case "2":
-                            System.out.println("CPF: ");
-                            cpf = leia.next();
-                            index = hospital.pesquisarPacienteCpf(cpf);
+                        System.out.print("Deseja modificar? S/N: ");
+                        escolha = leia.next().toUpperCase();
 
-                            hospital.getPacientes().get(index).print();
-                            break;
+                        if(escolha.equals("S")){
+                            hospital.getPacientes().get(index);
+                        }
 
-                        default:
+                    } else{
+                        System.out.println("Cancelado!");
                     }
-                    break;
 
-                case "4":
-
+                case "5":
+                    hospital.exibirTodosPacientes();
                     break;
             }
-
-
         }while (!escolha.equals("SAIR"));
     }
 }
