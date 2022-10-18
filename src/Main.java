@@ -60,34 +60,20 @@ public class Main {
 
                 //Remover Paciente
                 case "2":
-                    System.out.println("""
-                            
-                            Remover Paciente
-                            
-                            A - Pesquisar pelo CPF
-                            Qualquer outro caractere para voltar para o menu
-                            """);
+                    System.out.println("Remover Paciente");
 
-                    System.out.print("Escolha: ");
+                    System.out.print("CPF: ");
+                    cpf = leia.next();
+                    indice = hospital.pesquisarPacienteCpf(cpf);
+
+                    System.out.println("Encontrado: ");
+                    hospital.getPacientes().get(indice).print();
+
+                    System.out.print("Remover? S/N: ");
                     escolha = leia.next().toUpperCase();
 
-                    if(escolha.equals("A")){
-                        System.out.print("CPF: ");
-                        cpf = leia.next();
-                        indice = hospital.pesquisarPacienteCpf(cpf);
-
-                        System.out.println("Encontrado: ");
-                        hospital.getPacientes().get(indice).print();
-
-                        System.out.print("Remover? S/N: ");
-                        escolha = leia.next().toUpperCase();
-
-                        if (escolha.equals("S")){
-                            hospital.removerPaciente(indice);
-                        }
-
-                    }else {
-                        System.out.println("Cancelado!");
+                    if (escolha.equals("S")){
+                        hospital.removerPaciente(indice);
                     }
 
                     break;
@@ -123,47 +109,34 @@ public class Main {
 
                 //Editar Paciente
                 case "4":
-                    System.out.println("""
-                            
-                            Editar Paciente
-                            A - Pesquisar pelo CPF
-                            Qualquer outro caractere para voltar para o menu""");
+                    System.out.println("Editar Paciente");
+                    System.out.print("CPF");
+                    cpf = leia.next();
+                    indice = hospital.pesquisarPacienteCpf(cpf);
 
-                    System.out.print("Sua escolha: ");
-                    escolha = leia.next();
+                    System.out.print("Encontrado: ");
+                    hospital.getPacientes().get(indice).print();
 
-                    if (escolha.equals("A")) {
-                        System.out.print("CPF");
+                    System.out.print("Deseja modificar? S/N: ");
+                    escolha = leia.next().toUpperCase();
+
+                    if(escolha.equals("S")){
+                        System.out.print("Nome: ");
+                        nome = leia.next();
+                        System.out.print("Idade: ");
+                        idade = leia.nextInt();
+                        System.out.print("CPF: ");
                         cpf = leia.next();
-                        indice = hospital.pesquisarPacienteCpf(cpf);
+                        System.out.print("Data nascimento: ");
+                        dataNascimento = leia.next();
 
-                        System.out.print("Encontrado: ");
-                        hospital.getPacientes().get(indice).print();
-
-                        System.out.print("Deseja modificar? S/N: ");
-                        escolha = leia.next().toUpperCase();
-
-                        if(escolha.equals("S")){
-                            System.out.print("Nome: ");
-                            nome = leia.next();
-                            System.out.print("Idade: ");
-                            idade = leia.nextInt();
-                            System.out.print("CPF: ");
-                            cpf = leia.next();
-                            System.out.print("Data nascimento: ");
-                            dataNascimento = leia.next();
-
-                            hospital.editarPaciente(
-                                    indice,
-                                    nome,
-                                    idade,
-                                    cpf,
-                                    dataNascimento
-                            );
-                        }
-
-                    } else{
-                        System.out.println("Cancelado!");
+                        hospital.editarPaciente(
+                                indice,
+                                nome,
+                                idade,
+                                cpf,
+                                dataNascimento
+                        );
                     }
 
                     break;
@@ -235,7 +208,7 @@ public class Main {
                             """);
 
                     System.out.print("Sua escolha: ");
-                    escolha = leia.next();
+                    escolha = leia.next().toUpperCase();
 
                     if (escolha.equals("A")){
                         System.out.print("Nome: ");
