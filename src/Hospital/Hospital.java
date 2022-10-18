@@ -49,7 +49,7 @@ public class Hospital {
 
     public void exibirPacientesComCpf(String cpf) {
         for (Paciente paciente : pacientes) {
-            if (paciente.getNome().equals(cpf)) {
+            if (paciente.getCpf().equals(cpf)) {
                 paciente.print();
                 System.out.println("--------------------------------");
             }
@@ -67,7 +67,7 @@ public class Hospital {
 
     public void exibirDoutoresComEspecialidade(String especialidade) {
         for (Doutor doutor : doutores) {
-            if (doutor.getNome().equals(especialidade)) {
+            if (doutor.getEspecialidade().equals(especialidade)) {
                 doutor.print();
                 System.out.println("--------------------------------");
             }
@@ -79,7 +79,7 @@ public class Hospital {
         int index = 0;
 
         for (Paciente paciente : pacientes) {
-            if (paciente.getNome().equals(cpf)) {
+            if (paciente.getCpf().equals(cpf)) {
                 index = pacientes.lastIndexOf(paciente);
             }
         }
@@ -107,7 +107,7 @@ public class Hospital {
         ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
 
         for(Doutor doutor : doutores){
-            if (doutor.getNome().equals(especialidade)){
+            if (doutor.getEspecialidade().equals(especialidade)){
                 indices = doutores.indexOf(doutor);
                 ocorrenciasIndices.add(indices);
             }

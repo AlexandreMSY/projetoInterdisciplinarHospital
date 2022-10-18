@@ -11,7 +11,7 @@ public class Main {
         leia.useDelimiter("\\R"); //https://stackoverflow.com/questions/69680170/scanner-skipping-my-nextline-statement-in-constructor
         Hospital hospital = new Hospital();
         String escolha;
-        String nome = null, cpf = null, dataNascimento, especialiade;
+        String nome, cpf, dataNascimento, especialiade;
         int idade;
         int indice;
 
