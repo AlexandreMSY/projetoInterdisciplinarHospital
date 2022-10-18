@@ -39,9 +39,36 @@ public class Hospital {
     }
 
     public void exibirPacientesComNome(String nome) {
-        for (Paciente listaPaciente : pacientes) {
-            if (listaPaciente.getNome().equals(nome)) {
-                listaPaciente.print();
+        for (Paciente paciente : pacientes) {
+            if (paciente.getNome().equals(nome)) {
+                paciente.print();
+                System.out.println("--------------------------------");
+            }
+        }
+    }
+
+    public void exibirPacientesComCpf(String cpf) {
+        for (Paciente paciente : pacientes) {
+            if (paciente.getCpf().equals(cpf)) {
+                paciente.print();
+                System.out.println("--------------------------------");
+            }
+        }
+    }
+
+    public void exibirDoutoresComNome(String nome) {
+        for (Doutor doutor : doutores) {
+            if (doutor.getNome().equals(nome)) {
+                doutor.print();
+                System.out.println("--------------------------------");
+            }
+        }
+    }
+
+    public void exibirDoutoresComEspecialidade(String especialidade) {
+        for (Doutor doutor : doutores) {
+            if (doutor.getEspecialidade().equals(especialidade)) {
+                doutor.print();
                 System.out.println("--------------------------------");
             }
         }
@@ -51,9 +78,9 @@ public class Hospital {
     public int pesquisarPacienteCpf(String cpf) {
         int index = 0;
 
-        for (Paciente listaPaciente : pacientes) {
-            if (listaPaciente.getNome().equals(cpf)) {
-                index = pacientes.indexOf(listaPaciente);
+        for (Paciente paciente : pacientes) {
+            if (paciente.getCpf().equals(cpf)) {
+                index = pacientes.lastIndexOf(paciente);
             }
         }
         return index;
@@ -64,9 +91,9 @@ public class Hospital {
         int indices;
         ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
 
-        for(Doutor doutorEncontrado : doutores){
-            if (doutorEncontrado.getNome().equals(nome)){
-                indices = doutores.indexOf(doutorEncontrado);
+        for(Doutor doutor : doutores){
+            if (doutor.getNome().equals(nome)){
+                indices = doutores.indexOf(doutor);
                 ocorrenciasIndices.add(indices);
             }
         }
@@ -79,9 +106,9 @@ public class Hospital {
         int indices;
         ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
 
-        for(Doutor doutorEncontrado : doutores){
-            if (doutorEncontrado.getNome().equals(especialidade)){
-                indices = doutores.indexOf(doutorEncontrado);
+        for(Doutor doutor : doutores){
+            if (doutor.getEspecialidade().equals(especialidade)){
+                indices = doutores.indexOf(doutor);
                 ocorrenciasIndices.add(indices);
             }
         }
