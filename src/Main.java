@@ -96,7 +96,7 @@ public class Main {
                             2 - Pesquisar pelo CPF
                             Qualquer outro caractere para voltar para o menu
                             """);
-
+                    System.out.print("Sua escolha: ");
                     escolha = leia.next();
 
                     if (escolha.equals("1")){
@@ -121,6 +121,7 @@ public class Main {
                             1 - Pesquisar pelo CPF
                             Qualquer outro caractere para voltar para o menu""");
 
+                    System.out.print("Sua escolha: ");
                     escolha = leia.next();
 
                     if (escolha.equals("1")) {
@@ -134,7 +135,22 @@ public class Main {
                         escolha = leia.next().toUpperCase();
 
                         if(escolha.equals("S")){
-                            hospital.getPacientes().get(indice);
+                            System.out.println("Nome: ");
+                            nome = leia.next();
+                            System.out.println("Idade: ");
+                            idade = leia.nextInt();
+                            System.out.println("CPF: ");
+                            cpf = leia.next();
+                            System.out.println("Data nascimento: ");
+                            dataNascimento = leia.next();
+
+                            hospital.editarPaciente(
+                                    indice,
+                                    nome,
+                                    idade,
+                                    cpf,
+                                    dataNascimento
+                            );
                         }
 
                     } else{
