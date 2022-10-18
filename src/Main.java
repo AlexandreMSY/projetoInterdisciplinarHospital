@@ -18,6 +18,7 @@ public class Main {
         do {
             System.out.println(
                     """
+                    
                     Sistema Hospital
                     1 - Adicionar Paciente
                     2 - Remover Paciente
@@ -61,14 +62,14 @@ public class Main {
                     System.out.println("""
                             Remover Paciente
                             
-                            1 - Pesquisar pelo CPF
+                            A - Pesquisar pelo CPF
                             Qualquer outro caractere para voltar para o menu
                             """);
 
                     System.out.print("Escolha: ");
                     escolha = leia.next().toUpperCase();
 
-                    if(escolha.equals("1")){
+                    if(escolha.equals("A")){
                         System.out.print("CPF: ");
                         cpf = leia.next();
                         indice = hospital.pesquisarPacienteCpf(cpf);
@@ -92,19 +93,19 @@ public class Main {
                 case "3":
                     System.out.println("""
                             Pesquisar Paciente
-                            1 - Pesquisar pelo nome
-                            2 - Pesquisar pelo CPF
+                            A - Pesquisar pelo nome
+                            B - Pesquisar pelo CPF
                             Qualquer outro caractere para voltar para o menu
                             """);
                     System.out.print("Sua escolha: ");
                     escolha = leia.next();
 
-                    if (escolha.equals("1")){
+                    if (escolha.equals("A")){
                         System.out.print("Nome: ");
                         nome = leia.next();
                         hospital.exibirPacientesComNome(nome);
 
-                    } else if (escolha.equals("2")) {
+                    } else if (escolha.equals("B")) {
                         System.out.println("CPF: ");
                         cpf = leia.next();
                         indice = hospital.pesquisarPacienteCpf(cpf);
@@ -119,13 +120,13 @@ public class Main {
                 case "4":
                     System.out.println("""
                             Editar Paciente
-                            1 - Pesquisar pelo CPF
+                            A - Pesquisar pelo CPF
                             Qualquer outro caractere para voltar para o menu""");
 
                     System.out.print("Sua escolha: ");
                     escolha = leia.next();
 
-                    if (escolha.equals("1")) {
+                    if (escolha.equals("A")) {
                         System.out.println("CPF");
                         cpf = leia.next();
                         indice = hospital.pesquisarPacienteCpf(cpf);
@@ -137,13 +138,13 @@ public class Main {
                         escolha = leia.next().toUpperCase();
 
                         if(escolha.equals("S")){
-                            System.out.println("Nome: ");
+                            System.out.print("Nome: ");
                             nome = leia.next();
-                            System.out.println("Idade: ");
+                            System.out.print("Idade: ");
                             idade = leia.nextInt();
-                            System.out.println("CPF: ");
+                            System.out.print("CPF: ");
                             cpf = leia.next();
-                            System.out.println("Data nascimento: ");
+                            System.out.print("Data nascimento: ");
                             dataNascimento = leia.next();
 
                             hospital.editarPaciente(
