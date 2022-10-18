@@ -125,6 +125,7 @@ public class Main {
                     escolha = leia.next();
 
                     if (escolha.equals("1")) {
+                        System.out.println("CPF");
                         cpf = leia.next();
                         indice = hospital.pesquisarPacienteCpf(cpf);
 
