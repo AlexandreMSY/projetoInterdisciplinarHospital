@@ -113,6 +113,7 @@ public class Main {
                     } else {
                         System.out.println("Cancelado!");
                     }
+                    break;
 
                 //Editar Paciente
                 case "4":
@@ -157,6 +158,7 @@ public class Main {
                     } else{
                         System.out.println("Cancelado!");
                     }
+                    break;
 
                     //Exibir Pacientes
                 case "5":
