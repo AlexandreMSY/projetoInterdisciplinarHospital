@@ -39,8 +39,12 @@ public class Hospital {
     }
 
     public void exibirPacientesComNome(String nome) {
+        int id;
+
         for (Paciente paciente : pacientes) {
             if (paciente.getNome().equals(nome)) {
+                id = pacientes.indexOf(paciente);
+                System.out.println("ID: " + id);
                 paciente.print();
                 System.out.println("--------------------------------");
             }
@@ -48,8 +52,12 @@ public class Hospital {
     }
 
     public void exibirPacientesComCpf(String cpf) {
+        int id;
+
         for (Paciente paciente : pacientes) {
             if (paciente.getCpf().equals(cpf)) {
+                id = pacientes.indexOf(paciente);
+                System.out.println("ID: " + id);
                 paciente.print();
                 System.out.println("--------------------------------");
             }
@@ -57,8 +65,12 @@ public class Hospital {
     }
 
     public void exibirDoutoresComNome(String nome) {
+        int id;
+
         for (Doutor doutor : doutores) {
             if (doutor.getNome().equals(nome)) {
+                id = doutores.indexOf(doutor);
+                System.out.println("ID: " + id);
                 doutor.print();
                 System.out.println("--------------------------------");
             }
@@ -66,8 +78,12 @@ public class Hospital {
     }
 
     public void exibirDoutoresComEspecialidade(String especialidade) {
+        int id;
+
         for (Doutor doutor : doutores) {
             if (doutor.getEspecialidade().equals(especialidade)) {
+                id = doutores.indexOf(doutor);
+                System.out.println("ID: " + id);
                 doutor.print();
                 System.out.println("--------------------------------");
             }

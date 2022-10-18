@@ -28,6 +28,7 @@ public class Main {
                     6 - Adicionar Doutor
                     7 - Remover Doutor
                     8 - Pesquisar Doutor
+                    9 - Editar Doutor
                     
                     Digite SAIR para Sair.
                     """);
@@ -110,11 +111,11 @@ public class Main {
                 //Editar Paciente
                 case "4":
                     System.out.println("Editar Paciente");
-                    System.out.print("CPF");
+                    System.out.print("CPF: ");
                     cpf = leia.next();
                     indice = hospital.pesquisarPacienteCpf(cpf);
 
-                    System.out.print("Encontrado: ");
+                    System.out.println("Encontrado: ");
                     hospital.getPacientes().get(indice).print();
 
                     System.out.print("Deseja modificar? S/N: ");
@@ -144,7 +145,6 @@ public class Main {
                     //Exibir Pacientes
                 case "5":
                     hospital.exibirTodosPacientes();
-
                     break;
 
                     //Adicionar Doutor
@@ -160,7 +160,6 @@ public class Main {
                     );
 
                     hospital.adicionarDoutor(doutor);
-
                     break;
 
                     //Remover Doutor
@@ -174,16 +173,11 @@ public class Main {
                     //esse metodo retorna cada posição do indice da array doutores que o nome foi encontrado
                     doutoresEncontrados = hospital.pesquisarDoutorNome(nome);
 
-                    //este loop printa todas as vezes que o nome foi encontrado
-                    for(int doutorEncontrado : doutoresEncontrados){
-                        indice = doutoresEncontrados.lastIndexOf(doutorEncontrado);
-                        System.out.println("ID: " + indice);
-                        hospital.getDoutores().get(indice).print();
-                    }
+                    hospital.exibirDoutoresComNome(nome);
 
                     System.out.print("ID para remover: ");
                     indiceParaRemocao = leia.nextInt();
-                    indice = doutoresEncontrados.get(indiceParaRemocao);
+                    indice = doutoresEncontrados.indexOf(indiceParaRemocao);
 
                     hospital.getDoutores().get(indice).print();
 
@@ -225,7 +219,9 @@ public class Main {
                     }
 
                     break;
-            }
+
+                    }
+
         }while (!escolha.equals("SAIR"));
     }
 }
