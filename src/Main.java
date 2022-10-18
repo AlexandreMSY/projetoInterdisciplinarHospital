@@ -226,7 +226,7 @@ public class Main {
 
                     System.out.println("""
                             A - Pesquisar por Nome
-                            B - Pesquisar por Especialidade
+                            B - Pesquisar por Especialidade(em construção, ainda não funciona)
                             
                             Qualquer outro caractere para sair
                             """);
