@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Hospital {
     private ArrayList<Doutor> doutores = new ArrayList<>();
     private ArrayList<Paciente> pacientes = new ArrayList<>();
+    private ArrayList<Consulta> consultas = new ArrayList<>();
+
 
     public void adicionarDoutor(Doutor doutor){
         doutores.add(doutor);
@@ -36,6 +38,28 @@ public class Hospital {
         pacientes.get(index).setIdade(idade);
         pacientes.get(index).setCpf(cpf);
         pacientes.get(index).setDataNascimento(dataNascimento);
+    }
+
+    public ArrayList<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+    public void adicionarConsulta(Consulta consulta){
+        consultas.add(consulta);
+    }
+
+    public void removerConsulta(int index){
+        consultas.remove(index);
+    }
+
+    public void editarColsulta(int index, Paciente paciente, Doutor doutor, String dataConsulta){
+        consultas.get(index).setPaciente(paciente);
+        consultas.get(index).setDoutor(doutor);
+        consultas.get(index).setDataConsulta(dataConsulta);
+    }
+
+    public ArrayList<Consulta> getConsultas(){
+        return consultas;
     }
 
     public void exibirPacientesComNome(String nome) {
@@ -91,7 +115,20 @@ public class Hospital {
     }
 
     //apenas retorna a última ocorrencia do cpf localizado pois o CPF, em teoria, deve ser único
-    public ArrayList<Integer> pesquisarPacienteCpf(String cpf) {
+    public ArrayList<Integer> indicesPacientesNome(String nome) {
+        int indices;
+        ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
+
+        for (Paciente paciente : pacientes) {
+            if (paciente.getCpf().equals(nome)) {
+                indices = pacientes.indexOf(paciente);
+                ocorrenciasIndices.add(indices);
+            }
+        }
+
+        return ocorrenciasIndices;
+    }
+    public ArrayList<Integer> indicesPacientesCpf(String cpf) {
         int indices;
         ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
 
@@ -106,7 +143,7 @@ public class Hospital {
     }
 
     //esse metodo retorna cada posição do indice da array doutores que o nome foi encontrado
-    public ArrayList<Integer> pesquisarDoutorNome(String nome){
+    public ArrayList<Integer> indicesDoutorNome(String nome){
         int indices;
         ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
 
@@ -121,7 +158,7 @@ public class Hospital {
     }
 
     //esse metodo retorna cada posição do indice da array doutores que a especialidade foi encontrado
-    public ArrayList<Integer> pesquisarDoutorEspecialidade(String especialidade){
+    public ArrayList<Integer> indicesDoutorEspecialidade(String especialidade){
         int indices;
         ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
 
@@ -133,10 +170,6 @@ public class Hospital {
         }
 
         return ocorrenciasIndices;
-    }
-
-    public ArrayList<Paciente> getPacientes() {
-        return pacientes;
     }
 
     public void exibirTodosDoutores(){
@@ -157,6 +190,17 @@ public class Hospital {
             id = pacientes.indexOf(paciente);
             System.out.println("ID: " + id);
             paciente.print();
+            System.out.println("--------------------------------");
+        }
+    }
+
+    public void exibirTodasConsultas(){
+        int id;
+
+        for (Consulta consulta : consultas){
+            id = consultas.indexOf(consulta);
+            System.out.println("ID: " + id);
+            consulta.print();
             System.out.println("--------------------------------");
         }
     }
