@@ -91,15 +91,18 @@ public class Hospital {
     }
 
     //apenas retorna a última ocorrencia do cpf localizado pois o CPF, em teoria, deve ser único
-    public int pesquisarPacienteCpf(String cpf) {
-        int index = 0;
+    public ArrayList<Integer> pesquisarPacienteCpf(String cpf) {
+        int indices;
+        ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
 
         for (Paciente paciente : pacientes) {
             if (paciente.getCpf().equals(cpf)) {
-                index = pacientes.lastIndexOf(paciente);
+                indices = pacientes.indexOf(paciente);
+                ocorrenciasIndices.add(indices);
             }
         }
-        return index;
+
+        return ocorrenciasIndices;
     }
 
     //esse metodo retorna cada posição do indice da array doutores que o nome foi encontrado
@@ -137,14 +140,22 @@ public class Hospital {
     }
 
     public void exibirTodosDoutores(){
-        for (Doutor doutores : doutores) {
-            doutores.print();
+        int id;
+
+        for (Doutor doutor : doutores) {
+            id = doutores.indexOf(doutor);
+            System.out.println("ID: " + id);
+            doutor.print();
             System.out.println("--------------------------------");
         }
     }
 
     public void exibirTodosPacientes(){
+        int id;
+
         for (Paciente paciente : pacientes) {
+            id = pacientes.indexOf(paciente);
+            System.out.println("ID: " + id);
             paciente.print();
             System.out.println("--------------------------------");
         }

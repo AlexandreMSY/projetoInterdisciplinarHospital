@@ -15,6 +15,7 @@ public class Main {
         int idade;
         int indice, id;
         ArrayList<Integer> doutoresEncontrados;
+        ArrayList<Integer> pacientesEncontrados;
 
         do {
             System.out.println(
@@ -25,11 +26,12 @@ public class Main {
                     2 - Remover Paciente
                     3 - Pesquisar Paciente
                     4 - Editar Paciente
-                    5 - Exibir Pacientes
+                    5 - Exibir Pacientes Cadastrados
                     6 - Adicionar Doutor
                     7 - Remover Doutor
                     8 - Pesquisar Doutor
                     9 - Editar Doutor
+                    10 - Exibir Doutores Cadastrados
                     
                     Digite SAIR para Sair.
                     """);
@@ -66,16 +68,28 @@ public class Main {
 
                     System.out.print("CPF: ");
                     cpf = leia.next();
-                    indice = hospital.pesquisarPacienteCpf(cpf);
+
+                    pacientesEncontrados = hospital.pesquisarPacienteCpf(cpf);
 
                     System.out.println("Encontrado: ");
-                    hospital.getPacientes().get(indice).print();
+                    hospital.exibirPacientesComCpf(cpf);
 
-                    System.out.print("Remover? S/N: ");
-                    opcao = leia.next().toUpperCase();
+                    System.out.print("ID para remover: ");
+                    indice = leia.nextInt(); //o "id" é nada mais do que a posição do elemento na lista pacientes
 
-                    if (opcao.equals("S")){
-                        hospital.removerPaciente(indice);
+                    if (pacientesEncontrados.contains(indice)){
+                        System.out.print("Deseja realmente remover? S/N: ");
+                        opcao = leia.next().toUpperCase();
+
+                        if(opcao.equals("S")){
+                            hospital.removerPaciente(indice);
+                            System.out.println("Removido!");
+                        }else{
+                            System.out.println("Cancelado!");
+                        }
+
+                    }else{
+                        System.out.println("Invalido");
                     }
 
                     break;
@@ -96,11 +110,13 @@ public class Main {
                     if (opcao.equals("A")){
                         System.out.print("Nome: ");
                         nome = leia.next();
+                        System.out.println("Encontrados: ");
                         hospital.exibirPacientesComNome(nome);
 
                     } else if (opcao.equals("B")) {
                         System.out.print("CPF: ");
                         cpf = leia.next();
+                        System.out.println("Encontrado: ");
                         hospital.exibirPacientesComCpf(cpf);
 
                     } else {
@@ -114,12 +130,14 @@ public class Main {
                     System.out.println("Editar Paciente");
                     System.out.print("CPF: ");
                     cpf = leia.next();
-                    indice = hospital.pesquisarPacienteCpf(cpf); //retorna a posição do cpf encontrado na lista paciente, o cpf no cadastro deve ser UNICO
+
+                    pacientesEncontrados = hospital.pesquisarPacienteCpf(cpf);
 
                     System.out.println("Encontrado: ");
-                    hospital.getPacientes().get(indice).print();
+                    hospital.exibirPacientesComCpf(cpf);
+                    indice = pacientesEncontrados.get(0); //a lista pacientes encontrados deve conter apenas um elemento, pois CPFs são unicos
 
-                    System.out.print("Deseja modificar? S/N: ");
+                    System.out.print("Deseja editar? S/N: ");
                     opcao = leia.next().toUpperCase();
 
                     if(opcao.equals("S")){
@@ -161,6 +179,7 @@ public class Main {
                     );
 
                     hospital.adicionarDoutor(doutor);
+                    System.out.println("Adicionado!");
                     break;
 
                     //Remover Doutor
@@ -238,6 +257,7 @@ public class Main {
                         System.out.print("Nome: ");
                         nome = leia.next();
 
+                        //esse metodo retorna cada posição do indice da array doutores que a especialidade foi encontrado
                         doutoresEncontrados = hospital.pesquisarDoutorNome(nome);
 
                         System.out.println("Encontrados: ");
@@ -263,14 +283,45 @@ public class Main {
 
                             hospital.editarDoutor(indice, nome, especialiade);
                         }
-                    } /*else if (escolha.equals("B")) {
+                    } else if (escolha.equals("B")) {
                         System.out.print("Especialidade: ");
                         especialiade = leia.next();
 
-                    } */
-                    else {
+                        doutoresEncontrados = hospital.pesquisarDoutorEspecialidade(especialiade);
+
+                        System.out.println("Encontrados: ");
+                        for(Integer doutorEncontrado : doutoresEncontrados){
+                            id = doutorEncontrado;
+                            System.out.println("ID: " + doutorEncontrado);
+                            hospital.getDoutores().get(id).print();
+                        }
+
+                        System.out.print("ID para remoção: ");
+                        idParaRemocao = leia.nextInt();
+                        indice = doutoresEncontrados.indexOf(idParaRemocao);
+                        System.out.println(indice);
+
+                        hospital.getDoutores().get(indice).print();
+                        System.out.print("Editar esse doutor? S/N: ");
+                        escolha = leia.next().toUpperCase();
+
+                        if(escolha.equals("S")){
+                            System.out.print("Nome: ");
+                            nome = leia.next();
+                            System.out.print("Especialidade: ");
+                            especialiade = leia.next();
+
+                            hospital.editarDoutor(indice, nome, especialiade);
+                        }
+
+
+                    } else {
                         System.out.println("Cancelado");
                     }
+                    break;
+
+                case "10":
+                    hospital.exibirTodosDoutores();
                     break;
             }
         }while (!escolha.equals("SAIR"));
