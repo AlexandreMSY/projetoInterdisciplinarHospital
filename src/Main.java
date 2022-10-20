@@ -16,8 +16,7 @@ public class Main {
         int quantidadePacientes, quantidadeDoutores;
         int idade;
         int indice, id, indicePaciente, indiceDoutor;
-        ArrayList<Integer> doutoresEncontrados;
-        ArrayList<Integer> pacientesEncontrados;
+        ArrayList<Integer> doutoresEncontrados, pacientesEncontrados, consultasEncontradas;
 
         do {
             quantidadePacientes = hospital.getPacientes().size();
@@ -38,7 +37,10 @@ public class Main {
                     9 - Editar Doutor
                     10 - Exibir Doutores Cadastrados
                     11 - Adicionar Consulta
-                    12 - Exibir Consultas Cadastradas
+                    12 - Remover Consulta
+                    13 - Pesquisar Consulta
+                    14 - Editar Consulta
+                    15 - Exibir consultas
                     
                     
                     
@@ -254,7 +256,7 @@ public class Main {
 
                     System.out.println("""
                             A - Pesquisar por Nome
-                            B - Pesquisar por Especialidade(em construção, ainda não funciona)
+                            B - Pesquisar por Especialidade
                             
                             Qualquer outro caractere para sair
                             """);
@@ -321,10 +323,12 @@ public class Main {
                     }
                     break;
 
+                    //exibir todos os doutores
                 case "10":
                     hospital.exibirTodosDoutores();
                     break;
 
+                    //adicionar consulta
                 case "11":
                     if (quantidadeDoutores == 0){
                         System.out.println("Não há doutores!");
@@ -368,8 +372,120 @@ public class Main {
                         hospital.adicionarConsulta(consulta);
                     }
                     break;
-
+                    //remover consulta
                 case "12":
+                    System.out.print("Especialidade: ");
+                    especialiade = leia.next();
+
+                    consultasEncontradas = hospital.indicesConsultasEspecialidade(especialiade);
+
+                    System.out.println("Encontrados: ");
+                    hospital.exibirConsultasComEspecialidade(especialiade);
+
+                    System.out.print("ID para remover: ");
+                    id = leia.nextInt();
+
+                    if(consultasEncontradas.contains(id)){
+                        hospital.getConsultas().get(id).print();
+                        System.out.print("Remover S/N: ");
+                        opcao = leia.next().toUpperCase();
+
+                        if(opcao.equals("S")){
+                            indice = consultasEncontradas.get(id);
+                            hospital.removerConsulta(indice);
+
+                            System.out.println("Removido!");
+                        }else{
+                            System.out.println("Cancelado");
+                        }
+                    }else{
+                        System.out.println("ID não encontrado!");
+                    }
+                    break;
+                    //pesquisar consulta
+                case "13":
+                    System.out.println("""
+                            
+                            Pesquisar Consulta
+                            
+                            A - Pesquisar por nome do Paciente
+                            B - Pesquisar por nome do Doutor
+                            C - Pesquisar por especialidade do Doutor
+                            
+                            Qualquer outro caractere para voltar ao menu
+                            """);
+
+                    System.out.print("Escolha: ");
+                    escolha = leia.next().toUpperCase();
+
+                    if (escolha.equals("A")){
+                        System.out.print("Nome do paciente: ");
+                        nome = leia.next();
+
+                        hospital.exibirConsultasComNomeDoPaciente(nome);
+                    } else if (escolha.equals("B")) {
+                        System.out.print("Nome do doutor: ");
+                        nome = leia.next();
+
+                        hospital.exibirConsultasComNomeDoDoutor(nome);
+                    } else if (escolha.equals("C")) {
+                        System.out.print("Especialidade do Doutor: ");
+                        especialiade = leia.next();
+
+                        hospital.exibirConsultasComEspecialidade(especialiade);
+                    }else{
+                        System.out.println("Cancelado! ");
+                    }
+                    break;
+
+                    //editar consulta
+                case "14":
+                    int idConsulta;
+
+                    System.out.print("Especialidade: ");
+                    especialiade = leia.next();
+
+                    consultasEncontradas = hospital.indicesConsultasEspecialidade(especialiade);
+
+                    System.out.println("Encontrados: ");
+                    hospital.exibirConsultasComEspecialidade(especialiade);
+
+                    System.out.print("ID para editar: ");
+                    idConsulta = leia.nextInt();
+
+                    if (consultasEncontradas.contains(idConsulta)){
+                        System.out.print("Especialidade do Doutor: ");
+                        especialiade = leia.next();
+
+                        hospital.exibirDoutoresComEspecialidade(especialiade);
+                        System.out.print("ID para adicionar: ");
+                        indiceDoutor = leia.nextInt();
+
+                        doutor = hospital.getDoutores().get(indiceDoutor);
+
+                        System.out.println("CPF do Paciente: ");
+                        cpf = leia.next();
+
+                        System.out.println("Adicionado: ");
+                        hospital.exibirPacientesComCpf(cpf);
+
+                        indicePaciente = hospital.indicesPacientesCpf(cpf).get(0);
+                        paciente = hospital.getPacientes().get(indicePaciente);
+
+                        System.out.print("Data para consulta: ");
+                        data = leia.next();
+
+                        hospital.editarColsulta(
+                                idConsulta,
+                                paciente,
+                                doutor,
+                                data
+                        );
+                    }else{
+                        System.out.println("Consulta não encontrada!");
+                    }
+                    //exibir consultas
+                case "15":
                     hospital.exibirTodasConsultas();
                     break;
             }

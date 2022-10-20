@@ -114,6 +114,45 @@ public class Hospital {
         }
     }
 
+    public void exibirConsultasComNomeDoPaciente(String nome) {
+        int id;
+
+        for (Consulta consulta : consultas) {
+            if (consulta.getPaciente().getNome().equals(nome)) {
+                id = consultas.indexOf(consulta);
+                System.out.println("ID: " + id);
+                consulta.print();
+                System.out.println("--------------------------------");
+            }
+        }
+    }
+
+    public void exibirConsultasComNomeDoDoutor(String nome) {
+        int id;
+
+        for (Consulta consulta : consultas) {
+            if (consulta.getDoutor().getNome().equals(nome)) {
+                id = consultas.indexOf(consulta);
+                System.out.println("ID: " + id);
+                consulta.print();
+                System.out.println("--------------------------------");
+            }
+        }
+    }
+
+    public void exibirConsultasComEspecialidade(String especialidade) {
+        int id;
+
+        for (Consulta consulta : consultas) {
+            if (consulta.getDoutor().getEspecialidade().equals(especialidade)) {
+                id = consultas.indexOf(consulta);
+                System.out.println("ID: " + id);
+                consulta.print();
+                System.out.println("--------------------------------");
+            }
+        }
+    }
+
     //apenas retorna a última ocorrencia do cpf localizado pois o CPF, em teoria, deve ser único
     public ArrayList<Integer> indicesPacientesNome(String nome) {
         int indices;
@@ -165,6 +204,20 @@ public class Hospital {
         for(Doutor doutor : doutores){
             if (doutor.getEspecialidade().equals(especialidade)){
                 indices = doutores.indexOf(doutor);
+                ocorrenciasIndices.add(indices);
+            }
+        }
+
+        return ocorrenciasIndices;
+    }
+
+    public ArrayList<Integer> indicesConsultasEspecialidade(String especialidade){
+        int indices;
+        ArrayList<Integer> ocorrenciasIndices = new ArrayList<>();
+
+        for(Consulta consulta : consultas){
+            if (consulta.getDoutor().getEspecialidade().equals(especialidade)){
+                indices = consultas.indexOf(consulta);
                 ocorrenciasIndices.add(indices);
             }
         }
