@@ -357,7 +357,7 @@ public class Main {
                         data = leia.next();
 
                         paciente = hospital.getPacientes().get(indicePaciente);
-                        doutor = hospital.getDoutores().get(indiceDoutor)
+                        doutor = hospital.getDoutores().get(indiceDoutor);
 
                         Consulta consulta = new Consulta(
                                 paciente,
