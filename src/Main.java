@@ -13,13 +13,16 @@ public class Main {
         Hospital hospital = new Hospital();
         String escolha, opcao;
         String nome, cpf, data, especialiade;
-        int quantidadePacientes = hospital.getPacientes().size(), quantidadeDoutores = hospital.getDoutores().size();
+        int quantidadePacientes, quantidadeDoutores;
         int idade;
         int indice, id, indicePaciente, indiceDoutor;
         ArrayList<Integer> doutoresEncontrados;
         ArrayList<Integer> pacientesEncontrados;
 
         do {
+            quantidadePacientes = hospital.getPacientes().size();
+            quantidadeDoutores = hospital.getDoutores().size();
+
             System.out.println(
                     """
                     
