@@ -326,9 +326,9 @@ public class Main {
                     break;
 
                 case "11":
-                    if (quantidadeDoutores < 1){
+                    if (quantidadeDoutores == 0){
                         System.out.println("Não há doutores!");
-                    } else if (quantidadePacientes < 1){
+                    } else if (quantidadePacientes == 0){
                         System.out.println("Não há pacientes!");
                     } else {
                         System.out.println("Escolher Paciente");
@@ -356,9 +356,12 @@ public class Main {
                         System.out.println("Data para consulta: ");
                         data = leia.next();
 
+                        paciente = hospital.getPacientes().get(indicePaciente);
+                        doutor = hospital.getDoutores().get(indiceDoutor)
+
                         Consulta consulta = new Consulta(
-                                hospital.getPacientes().get(indicePaciente),
-                                hospital.getDoutores().get(indiceDoutor),
+                                paciente,
+                                doutor,
                                 data
                         );
 
