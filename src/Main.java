@@ -4,6 +4,7 @@ import java.util.Scanner;
 import Hospital.Doutor;
 import Hospital.Paciente;
 import Hospital.Hospital;
+import Hospital.Consulta;
 
 public class Main {
     public static void main(String[] args){
@@ -11,9 +12,10 @@ public class Main {
         leia.useDelimiter("\\R"); //https://stackoverflow.com/questions/69680170/scanner-skipping-my-nextline-statement-in-constructor
         Hospital hospital = new Hospital();
         String escolha, opcao;
-        String nome, cpf, dataNascimento, especialiade;
+        String nome, cpf, data, especialiade;
+        int quantidadePacientes = hospital.getPacientes().size(), quantidadeDoutores = hospital.getDoutores().size();
         int idade;
-        int indice, id;
+        int indice, id, indicePaciente, indiceDoutor;
         ArrayList<Integer> doutoresEncontrados;
         ArrayList<Integer> pacientesEncontrados;
 
@@ -32,6 +34,10 @@ public class Main {
                     8 - Pesquisar Doutor
                     9 - Editar Doutor
                     10 - Exibir Doutores Cadastrados
+                    11 - Adicionar Consulta
+                    12 - Exibir Consultas Cadastradas
+                    
+                    
                     
                     Digite SAIR para Sair.
                     """);
@@ -49,13 +55,13 @@ public class Main {
                     System.out.print("CPF: ");
                     cpf = leia.next();
                     System.out.print("Data Nascimento: ");
-                    dataNascimento = leia.next();
+                    data = leia.next();
 
                     Paciente paciente = new Paciente(
                             nome,
                             idade,
                             cpf,
-                            dataNascimento
+                            data
                     );
 
                     hospital.adicionarPaciente(paciente);
@@ -69,7 +75,7 @@ public class Main {
                     System.out.print("CPF: ");
                     cpf = leia.next();
 
-                    pacientesEncontrados = hospital.pesquisarPacienteCpf(cpf);
+                    pacientesEncontrados = hospital.indicesPacientesCpf(cpf);
 
                     System.out.println("Encontrado: ");
                     hospital.exibirPacientesComCpf(cpf);
@@ -131,7 +137,7 @@ public class Main {
                     System.out.print("CPF: ");
                     cpf = leia.next();
 
-                    pacientesEncontrados = hospital.pesquisarPacienteCpf(cpf);
+                    pacientesEncontrados = hospital.indicesPacientesCpf(cpf);
 
                     System.out.println("Encontrado: ");
                     hospital.exibirPacientesComCpf(cpf);
@@ -148,14 +154,14 @@ public class Main {
                         System.out.print("CPF: ");
                         cpf = leia.next();
                         System.out.print("Data nascimento: ");
-                        dataNascimento = leia.next();
+                        data = leia.next();
 
                         hospital.editarPaciente(
                                 indice,
                                 nome,
                                 idade,
                                 cpf,
-                                dataNascimento
+                                data
                         );
                     }
 
@@ -190,7 +196,7 @@ public class Main {
                     nome = leia.next();
 
                     //esse metodo retorna cada posição do indice da array doutores que o nome foi encontrado
-                    doutoresEncontrados = hospital.pesquisarDoutorNome(nome);
+                    doutoresEncontrados = hospital.indicesDoutorNome(nome);
 
                     hospital.exibirDoutoresComNome(nome);
 
@@ -198,13 +204,13 @@ public class Main {
                     indiceParaRemocao = leia.nextInt();
                     indice = doutoresEncontrados.indexOf(indiceParaRemocao);
 
-                    hospital.getDoutores().get(indice).print();
+                    hospital.exibirDoutoresComNome(nome);
 
                     System.out.print("Remover doutor? S/N: ");
                     opcao = leia.next().toUpperCase();
 
                     if(opcao.equals("S")){
-                        hospital.getDoutores().remove(indice);
+                        hospital.removerDoutor(indice);
                     }else{
                         System.out.println("Cancelado");
                     }
@@ -258,14 +264,10 @@ public class Main {
                         nome = leia.next();
 
                         //esse metodo retorna cada posição do indice da array doutores que a especialidade foi encontrado
-                        doutoresEncontrados = hospital.pesquisarDoutorNome(nome);
+                        doutoresEncontrados = hospital.indicesDoutorNome(nome);
 
                         System.out.println("Encontrados: ");
-                        for(Integer doutorEncontrado : doutoresEncontrados){
-                            id = doutorEncontrado;
-                            System.out.println("ID: " + id);
-                            hospital.getDoutores().get(doutorEncontrado).print();
-                        }
+                        hospital.exibirDoutoresComNome(nome);
 
                         System.out.print("ID para remoção: ");
                         idParaRemocao = leia.nextInt();
@@ -283,18 +285,14 @@ public class Main {
 
                             hospital.editarDoutor(indice, nome, especialiade);
                         }
-                    } else if (escolha.equals("B")) {
+                    } else if (opcao.equals("B")) {
                         System.out.print("Especialidade: ");
                         especialiade = leia.next();
 
-                        doutoresEncontrados = hospital.pesquisarDoutorEspecialidade(especialiade);
+                        doutoresEncontrados = hospital.indicesDoutorEspecialidade(especialiade);
 
                         System.out.println("Encontrados: ");
-                        for(Integer doutorEncontrado : doutoresEncontrados){
-                            id = doutorEncontrado;
-                            System.out.println("ID: " + doutorEncontrado);
-                            hospital.getDoutores().get(id).print();
-                        }
+                        hospital.exibirDoutoresComEspecialidade(especialiade);
 
                         System.out.print("ID para remoção: ");
                         idParaRemocao = leia.nextInt();
@@ -322,6 +320,51 @@ public class Main {
 
                 case "10":
                     hospital.exibirTodosDoutores();
+                    break;
+
+                case "11":
+                    if (quantidadeDoutores < 1){
+                        System.out.println("Não há doutores!");
+                    } else if (quantidadePacientes < 1){
+                        System.out.println("Não há pacientes!");
+                    } else {
+                        System.out.println("Escolher Paciente");
+                        System.out.print("CPF do Paciente: ");
+                        cpf = leia.next();
+
+                        indicePaciente = hospital.indicesPacientesCpf(cpf).get(0);
+
+                        System.out.println("Adicionado: ");
+                        hospital.exibirPacientesComCpf(cpf);
+
+                        System.out.println("Escolher doutor: ");
+                        System.out.print("Especialidade: ");
+                        especialiade = leia.next();
+
+                        doutoresEncontrados = hospital.indicesDoutorEspecialidade(especialiade);
+
+                        hospital.exibirDoutoresComEspecialidade(especialiade);
+
+                        System.out.print("ID do doutor: ");
+                        id = leia.nextInt();
+
+                        indiceDoutor = doutoresEncontrados.indexOf(id);
+
+                        System.out.println("Data para consulta: ");
+                        data = leia.next();
+
+                        Consulta consulta = new Consulta(
+                                hospital.getPacientes().get(indicePaciente),
+                                hospital.getDoutores().get(indiceDoutor),
+                                data
+                        );
+
+                        hospital.adicionarConsulta(consulta);
+                    }
+                    break;
+
+                case "12":
+                    hospital.exibirTodasConsultas();
                     break;
             }
         }while (!escolha.equals("SAIR"));
