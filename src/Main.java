@@ -75,32 +75,31 @@ public class Main {
 
                 //Remover Paciente
                 case "2":
+                    int quantidadePacientesEncontrados;
+
                     System.out.println("Remover Paciente");
 
                     System.out.print("CPF: ");
                     cpf = leia.next();
 
                     pacientesEncontrados = hospital.indicesPacientesCpf(cpf);
+                    quantidadePacientesEncontrados = pacientesEncontrados.size();
 
-                    System.out.println("Encontrado: ");
-                    hospital.exibirPacientesComCpf(cpf);
+                    if (quantidadePacientesEncontrados == 0){
+                        System.out.println("Não há pacientes com esse CPF");
+                    }else {
+                        System.out.println("Encontrado: ");
+                        hospital.exibirPacientesComCpf(cpf);
 
-                    System.out.print("ID para remover: ");
-                    indice = leia.nextInt(); //o "id" é nada mais do que a posição do elemento na lista pacientes
-
-                    if (pacientesEncontrados.contains(indice)){
                         System.out.print("Deseja realmente remover? S/N: ");
                         opcao = leia.next().toUpperCase();
 
-                        if(opcao.equals("S")){
-                            hospital.removerPaciente(indice);
+                        if (opcao.equals("S")) {
+                            hospital.removerPaciente(cpf);
                             System.out.println("Removido!");
-                        }else{
+                        } else {
                             System.out.println("Cancelado!");
                         }
-
-                    }else{
-                        System.out.println("Invalido");
                     }
 
                     break;

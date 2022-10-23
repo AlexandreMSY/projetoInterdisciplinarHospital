@@ -29,8 +29,16 @@ public class Hospital {
         pacientes.add(paciente);
     }
 
-    public void removerPaciente(int index){
-        pacientes.remove(index);
+    public void removerPaciente(String cpf){
+        int indice = 0;
+
+        for (Paciente paciente : pacientes){
+            if (paciente.getCpf().equals(cpf)){
+                indice = pacientes.indexOf(paciente);
+            }
+        }
+
+        pacientes.remove(indice);
     }
 
     public void editarPaciente(int index, String nome, int idade, String cpf, String dataNascimento){
